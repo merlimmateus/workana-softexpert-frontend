@@ -5,17 +5,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import userRoles from '../../utils/userRoules/userRoles'; // Import userRoles
+import userRoles from '../../utils/userRoules/userRoles';
 
 const Sidebar = ({ userProfile }) => {
   const drawerWidth = 240;
   const userType = userRoles[userProfile];
 
   const items = [
-    { label: 'Produtos', path: '/produtos', roles: ['client', 'seller', 'adm'] },
-    { label: 'Vendas', path: '/vendas', roles: ['seller', 'adm'] },
-    { label: 'Tipos de Produto', path: '/tipos-produto', roles: ['adm', 'seller'] },
-    { label: 'Gestão de Usuários', path: '/gestao-usuarios', roles: ['adm'] },
+    { label: 'Products', path: '/dashboard/products', roles: ['client', 'seller', 'adm'] },
+    { label: 'Sells', path: '/dashboard/sells', roles: ['seller', 'adm'] },
+    { label: 'Product Type', path: '/dashboard/product-type', roles: ['adm', 'seller'] },
+    { label: 'User Management', path: '/dashboard/user-management', roles: ['adm'] },
   ];
 
   const filteredItems = items.filter(item => item.roles.includes(userType));
