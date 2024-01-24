@@ -63,6 +63,14 @@ You can log in with the following default users:
   - Username: adm
   - Password: adm
 
+### Configure .env
+
+Dont't forget to set .env file using your API_BASE_URL. Example below:
+
+    ```bash
+    REACT_APP_API_URL=http://localhost:8080
+    ```
+
 ## Frontend Stack
 
 - React.js
