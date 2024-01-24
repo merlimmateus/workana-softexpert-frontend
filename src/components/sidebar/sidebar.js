@@ -13,7 +13,7 @@ const Sidebar = ({ userProfile }) => {
 
   const items = [
     { label: 'Products', path: '/dashboard/products', roles: ['client', 'seller', 'adm'] },
-    { label: 'Sells', path: '/dashboard/sells', roles: ['seller', 'adm'] },
+    { label: 'Sells', path: '/dashboard/sells', roles: ['seller', 'adm', 'client'] },
     { label: 'Product Type', path: '/dashboard/product-type', roles: ['adm', 'seller'] },
     { label: 'User Management', path: '/dashboard/user-management', roles: ['adm'] },
   ];
