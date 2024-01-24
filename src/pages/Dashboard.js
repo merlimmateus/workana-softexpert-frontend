@@ -1,14 +1,19 @@
 import React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import Sidebar from '../components/sidebar/sidebar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 
 function Dashboard() {
+  const userProfile = 3; // 1 (client), 2 (seller), ou 3 (adm)
+
   return (
-    <Container maxWidth="md">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Welcome to the Dashboard!
-      </Typography>
-    </Container>
+    <Box sx={{ display: 'flex' }}>
+      <Sidebar userProfile={userProfile} />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
+        <h1>Dashboard Content</h1>
+      </Box>
+    </Box>
   );
 }
 
