@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -33,44 +34,47 @@ function AddProductModal({ open, onClose }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add Products</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Name"
-          type="text"
-          fullWidth
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Price"
-          type="number"
-          fullWidth
-          value={price}
-          onChange={e => setPrice(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="ID do Tipo de Produto"
-          type="number"
-          fullWidth
-          value={productTypeId}
-          onChange={e => setProductTypeId(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancelar
-        </Button>
-        <Button onClick={handleAdd} color="primary">
-          Adicionar
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Add Products</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Name"
+            type="text"
+            fullWidth
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="Price"
+            type="number"
+            fullWidth
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="ID do Tipo de Produto"
+            type="number"
+            fullWidth
+            value={productTypeId}
+            onChange={e => setProductTypeId(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleAdd} color="primary">
+            Adicionar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+    </>
   );
 }
 

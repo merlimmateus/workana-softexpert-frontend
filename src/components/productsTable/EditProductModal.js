@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Dialog,
   DialogTitle,
@@ -47,8 +48,9 @@ function EditProductModal({ open, onClose, product }) {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `${API_URL}/products/${product.id}`,
+        `${API_URL}/products`,
         {
+          productId: product.id,
           name,
           price,
           productTypeId: productTypeId
@@ -68,50 +70,47 @@ function EditProductModal({ open, onClose, product }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Product</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Name"
-          type="text"
-          fullWidth
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          label="Price"
-          type="number"
-          fullWidth
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <TextField
-          select
-          margin="dense"
-          label="Product Type"
-          fullWidth
-          value={productTypeId}
-          onChange={(e) => setProductTypeId(e.target.value)}
-        >
-          {productTypes.map((type) => (
-            <MenuItem key={type.id} value={type.id}>
-              {type.name}
-            </MenuItem>
-          ))}
-        </TextField>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleEdit} color="primary">
-          Save
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Edit Product</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Name"
+            type="text"
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            margin="dense"
+            label="Price"
+            type="number"
+            fullWidth
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+          <TextField
+            type="number"
+            margin="dense"
+            label="Product Type"
+            fullWidth
+            value={productTypeId}
+            onChange={(e) => setProductTypeId(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleEdit} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+    </>
   );
 }
 

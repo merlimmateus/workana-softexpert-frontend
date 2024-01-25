@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Dialog,
   DialogTitle,
@@ -30,20 +31,23 @@ function DeleteProductModal({ open, onClose, productId }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Deletar Produto</DialogTitle>
-      <DialogContent>
-        <Typography>Tem certeza de que deseja deletar este produto?</Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancelar
-        </Button>
-        <Button onClick={handleDelete} color="primary">
-          Deletar
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Deletar Produto</DialogTitle>
+        <DialogContent>
+          <Typography>Tem certeza de que deseja deletar este produto?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Deletar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+    </>
   );
 }
 
