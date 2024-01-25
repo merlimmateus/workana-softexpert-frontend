@@ -32,7 +32,6 @@ function ProductsTable() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
 
   useEffect(() => {
     fetchData();
@@ -68,20 +67,29 @@ function ProductsTable() {
     fetchData();
   };
 
-  const handleEditClick = (product) => {
-    setSelectedProduct(product);
+  const handleEditClick = () => {
     setEditModalOpen(true);
     setAnchorEl(null);
   };
 
-  const handleDeleteClick = (product) => {
-    setSelectedProduct(product);
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    fetchData();
+  };
+
+  const handleDeleteClick = () => {
     setDeleteModalOpen(true);
     setAnchorEl(null);
   };
 
-  const handleMenu = (event) => {
+  const handleCloseDeleteModal = () => {
+    setDeleteModalOpen(false);
+    fetchData();
+  };
+
+  const handleMenu = (event, product) => {
     setAnchorEl(event.currentTarget);
+    setSelectedProduct(product);
   };
 
   const handleCloseMenu = () => {
@@ -95,7 +103,7 @@ function ProductsTable() {
   return (
     <div>
       <h1>Products</h1>
-      <div class="d-flex col-12 justify-content-end">
+      <div className="d-flex col-12 justify-content-end">
         <Button
           variant="contained"
           color="primary"
@@ -134,18 +142,18 @@ function ProductsTable() {
                   <TableCell>{product.createdAt}</TableCell>
                   <TableCell>{product.excluded ? "Yes" : "No"}</TableCell>
                   <TableCell>
-                    <IconButton onClick={handleMenu}>
+                    <IconButton onClick={(e) => handleMenu(e, product)}>
                       <MoreVertIcon />
                     </IconButton>
                     <Menu
                       anchorEl={anchorEl}
-                      open={open}
+                      open={Boolean(anchorEl)}
                       onClose={handleCloseMenu}
                     >
-                      <MenuItem onClick={() => handleEditClick(product)}>
+                      <MenuItem onClick={handleEditClick}>
                         Edit
                       </MenuItem>
-                      <MenuItem onClick={() => handleDeleteClick(product)}>
+                      <MenuItem onClick={handleDeleteClick}>
                         Delete
                       </MenuItem>
                     </Menu>
@@ -166,12 +174,12 @@ function ProductsTable() {
       <AddProductModal open={openAddModal} onClose={handleCloseAddModal} />
       <EditProductModal
         open={editModalOpen}
-        onClose={() => setEditModalOpen(false)}
+        onClose={handleCloseEditModal}
         product={selectedProduct}
       />
       <DeleteProductModal
         open={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
+        onClose={handleCloseDeleteModal}
         productId={selectedProduct?.id}
       />
     </div>

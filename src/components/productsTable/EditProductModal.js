@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import {
   Dialog,
   DialogTitle,
@@ -38,23 +39,19 @@ function EditProductModal({ open, onClose, product }) {
       setProductTypes(response.data);
     } catch (error) {
       console.error("Error fetching product types: ", error);
+      toast.error('Error fetching product types');
     }
   };
 
   const handleEdit = async () => {
     try {
       const token = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
-      const createdByUserId = user ? user.id : null;
-
       await axios.put(
-        `${API_URL}/products`,
+        `${API_URL}/products/${product.id}`,
         {
-          productId: product.id,
           name,
           price,
-          productTypeId: productTypeId,
-          createdByUserId,
+          productTypeId: productTypeId
         },
         {
           headers: {
@@ -62,9 +59,11 @@ function EditProductModal({ open, onClose, product }) {
           },
         }
       );
+      toast.success('Product updated successfully');
       onClose();
     } catch (error) {
       console.error("Error updating product: ", error);
+      toast.error('Error updating product');
     }
   };
 
@@ -75,7 +74,7 @@ function EditProductModal({ open, onClose, product }) {
         <TextField
           autoFocus
           margin="dense"
-          label="Namme"
+          label="Name"
           type="text"
           fullWidth
           value={name}

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import {
   Dialog,
   DialogTitle,
@@ -18,9 +19,11 @@ function DeleteSellModal({ open, onClose, sellId }) {
       await axios.delete(`${API_URL}/sells/${sellId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      toast.success('Sell deleted successfully');
       onClose();
     } catch (error) {
       console.error("Error deleting sell: ", error);
+      toast.error('Error deleting sell');
     }
   };
 

@@ -1,12 +1,7 @@
 import React from "react";
 import axios from "axios";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { toast } from 'react-toastify';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -18,9 +13,12 @@ function DeleteProductTypeModal({ open, onClose, productTypeId }) {
       await axios.delete(`${API_URL}/product-types/${productTypeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      toast.success("Product type deleted successfully");
       onClose();
     } catch (error) {
       console.error("Error deleting product type: ", error);
+      toast.error("Error deleting product type");
     }
   };
 
@@ -31,12 +29,8 @@ function DeleteProductTypeModal({ open, onClose, productTypeId }) {
         Are you sure you want to delete this product type?
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={handleDelete} color="primary">
-          Delete
-        </Button>
+        <Button onClick={onClose} color="primary">Cancel</Button>
+        <Button onClick={handleDelete} color="primary">Delete</Button>
       </DialogActions>
     </Dialog>
   );

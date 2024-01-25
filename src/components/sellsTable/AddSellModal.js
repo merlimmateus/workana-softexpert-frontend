@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -12,7 +13,7 @@ function AddSellModal({ open, onClose }) {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const user = JSON.parse(localStorage.getItem('user')); 
+      const user = JSON.parse(localStorage.getItem('user'));
       const createdByUserId = user ? user.id : null;
 
       await axios.post(`${API_URL}/sells`, {
@@ -23,9 +24,11 @@ function AddSellModal({ open, onClose }) {
       }, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
+      toast.success('Sell added successfully');
       onClose();
     } catch (error) {
       console.error('Error adding sell: ', error);
+      toast.error('Error adding sell');
     }
   };
 

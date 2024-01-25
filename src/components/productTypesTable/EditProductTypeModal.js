@@ -30,8 +30,7 @@ function EditProductTypeModal({ open, onClose, productType }) {
         {
           productTypeId: productType.id,
           name,
-          taxPercentage,
-          createdByUserId: productType.createdByUserId,
+          taxPercentage
         },
         {
           headers: { Authorization: `Bearer ${token}` },

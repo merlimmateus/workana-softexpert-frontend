@@ -16,6 +16,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AddProductTypeModal from "./AddProductTypeModal";
 import EditProductTypeModal from "./EditProductTypeModal";
 import DeleteProductTypeModal from "./DeleteProductTypeModal";
@@ -46,6 +48,7 @@ function ProductTypesTable() {
       setProductTypes(response.data);
     } catch (error) {
       console.error("Error fetching data: ", error);
+      toast.error("Error fetching product types");
     }
   };
 
@@ -67,10 +70,8 @@ function ProductTypesTable() {
     fetchData();
   };
 
-  const handleOpenEditModal = (productType) => {
+  const handleOpenEditModal = () => {
     setOpenEditModal(true);
-    setSelectedProductType(productType);
-    handleCloseMenu();
   };
 
   const handleCloseEditModal = () => {
@@ -78,10 +79,8 @@ function ProductTypesTable() {
     fetchData();
   };
 
-  const handleOpenDeleteModal = (productType) => {
+  const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
-    setSelectedProductType(productType);
-    handleCloseMenu();
   };
 
   const handleCloseDeleteModal = () => {
@@ -105,9 +104,11 @@ function ProductTypesTable() {
   return (
     <div>
       <h1>Product Types</h1>
-      <Button variant="contained" color="primary" onClick={handleOpenAddModal}>
-        + Product Type
-      </Button>
+      <div className="col-12 d-flex justify-content-end">
+        <Button variant="contained" color="primary" onClick={handleOpenAddModal}>
+          + Product Type
+        </Button>
+      </div>
       <TextField
         label="Search"
         variant="outlined"
@@ -136,9 +137,7 @@ function ProductTypesTable() {
                   <TableCell>{productType.taxPercentage}</TableCell>
                   <TableCell>{productType.excluded ? "Yes" : "No"}</TableCell>
                   <TableCell>
-                    <IconButton
-                      onClick={(e) => handleMenuClick(e, productType)}
-                    >
+                    <IconButton onClick={(e) => handleMenuClick(e, productType)}>
                       <MoreVertIcon />
                     </IconButton>
                     <Menu
@@ -146,14 +145,10 @@ function ProductTypesTable() {
                       open={Boolean(anchorEl)}
                       onClose={handleCloseMenu}
                     >
-                      <MenuItem
-                        onClick={() => handleOpenEditModal(productType)}
-                      >
+                      <MenuItem onClick={handleOpenEditModal}>
                         Edit
                       </MenuItem>
-                      <MenuItem
-                        onClick={() => handleOpenDeleteModal(productType)}
-                      >
+                      <MenuItem onClick={handleOpenDeleteModal}>
                         Delete
                       </MenuItem>
                     </Menu>

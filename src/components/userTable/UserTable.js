@@ -42,6 +42,7 @@ function UserTable() {
 
   return (
     <div>
+      <h1>User Management</h1>
       <TextField label="Search" variant="outlined" fullWidth margin="normal" onChange={e => setSearch(e.target.value)} />
       <TableContainer component={Paper}>
         <Table>

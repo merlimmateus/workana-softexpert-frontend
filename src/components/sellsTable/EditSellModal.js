@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import {
   Dialog,
   DialogTitle,
@@ -27,25 +28,22 @@ function EditSellModal({ open, onClose, sell }) {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
-      const createdByUserId = user ? user.id : null;
-
       await axios.put(
-        `${API_URL}/sells`,
+        `${API_URL}/sells/${sell.id}`,
         {
-          sellId: sell.id,
           name,
           quantity,
           productId,
-          createdByUserId, 
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      toast.success('Sell updated successfully');
       onClose();
     } catch (error) {
       console.error("Error updating sell: ", error);
+      toast.error('Error updating sell');
     }
   };
 

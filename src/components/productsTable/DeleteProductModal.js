@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { toast } from 'react-toastify';
 import {
   Dialog,
   DialogTitle,
@@ -20,9 +21,11 @@ function DeleteProductModal({ open, onClose, productId }) {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success('Product deleted successfully');
       onClose();
     } catch (error) {
       console.error("Error deleting product: ", error);
+      toast.error('Error deleting product');
     }
   };
 
